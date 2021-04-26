@@ -28,6 +28,7 @@ a{
 header{
     background: no-repeat 23% 50%/200% url('./images/bg-pattern-intro.svg'),linear-gradient(55deg, var(--vlred) 20% , var(--lred)) ;
     position: relative;
+    border-radius: 0 0 0 5rem;
     border-collapse: separate;
     padding: 2rem 0;    
 }
