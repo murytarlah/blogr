@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300;0,600;1,300;1,600&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import "animations.css";
 
 *{
     padding: 0;
@@ -92,11 +93,33 @@ nav > div > ul > li > a{
 
 nav > div > ul > li > div.arrow{
     display: flex;
-    text-align: center;
-    align-self: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
 }
 
-nav > div > ul > li > ul{
+nav > div > ul > li > div.arrow > div.arrow-down{
+    position: relative;
+    width: 8px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transform: rotate(45deg);
+}
+
+nav > div > ul > li > div.arrow > div.arrow-down:after{
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 3px;
+    background-color: white;
+    border-radius: 1.5px;
+    transform: translateX(-0.5px) translateY(-4px) rotate(90deg);
+}
+
+nav > div > ul > li > ul.sub-options{
     list-style-type: none;
     position: absolute;
     top: 150%;
@@ -109,12 +132,43 @@ nav > div > ul > li > ul{
     display: none;
 }
 
-nav > div > ul > li > ul > a > li{
+nav > div > ul > li > ul.sub-options.close{
+    list-style-type: none;
+    position: absolute;
+    top: 150%;
+    background: white;
+    padding: .5rem ;
+    text-align: left;
+    left: 0;
+    width: 120%;
+    -webkit-animation: slide-out-bck-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    animation: slide-out-bck-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    border-radius: .2rem;
+    display: block;
+}
+
+nav > div > ul > li > ul.sub-options.open{
+    list-style-type: none;
+    position: absolute;
+    top: 150%;
+    background: white;
+    padding: .5rem ;
+    text-align: left;
+    left: 0;
+    width: 120%;
+    -webkit-animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    border-radius: .2rem;
+    display: block;
+}
+
+nav > div > ul > li > ul.sub-options > a > li{
     width: 100%;
     color: black;
     font-weight: lighter;
     font-size: .8rem;
     margin: .5rem 0;
+    padding: 5px;
 }
 
 nav > div > div.register{
@@ -471,10 +525,54 @@ footer > div > ul > li > ul > a > li{
 }
 
 
+
 @media screen and (max-width: 600px){
     div.mobilenav{
+        position: relative;
         display: flex;
-        align-self: center;
+        width: 50px;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        transition: all .5s;
+    }
+    div.mobilenav > div.menu-btn_burger{
+        width: 40px;
+        border-radius: 1.5px;
+        height: 3px;
+        background: white;
+    }
+    div.mobilenav > div.menu-btn_burger::before{
+        content: '';
+        width: 40px;
+        border-radius: 1.5px;
+        position: absolute;
+        transform: translateY(-10px);
+        height: 3px;
+        transition: all .5s ease-in-out;
+        background: white;
+    }
+    div.mobilenav > div.menu-btn_burger::after{
+        content: '';
+        transition: all .5s ease-in-out;
+        transform: translateY(  10px);
+        position: absolute;
+        width: 40px;
+        border-radius: 1.5px;
+        height: 3px;
+        background: white;
+    }
+    /* ANIMATION */
+    .mobilenav.open .menu-btn_burger {
+        transform: translateX(-40px);
+        background: transparent;
+        box-shadow: none;
+    }
+    .mobilenav.open .menu-btn_burger::before {
+        transform: rotate(45deg) translate(35px, -30px);
+    }
+    .mobilenav.open .menu-btn_burger::after {
+        transform: rotate(-45deg) translate(25px, 25px);
     }
     nav > div.logo {
         width: 25%;
@@ -482,9 +580,115 @@ footer > div > ul > li > ul > a > li{
     nav > div.logo > img{
         width: 70%;
     }
+    nav {
+        position: relative;
+    }
     nav > div:nth-child(2){
         display: none;
     }
+    nav > div:nth-child(2).none{
+        display: block;
+        position: absolute;
+        top: 110%;
+        padding: 15px;
+        width: 100%;
+        height: auto;
+        background: var(--vlred);
+        left: 0;
+        -webkit-animation: slide-out-elliptic-right-bck 0.7s ease-in both;
+        animation: slide-out-elliptic-right-bck 0.7s ease-in both;
+    }
+
+    @-webkit-keyframes slide-in-elliptic-right-bck {
+        0% {
+            -webkit-transform: translateX(800px) rotateY(30deg) scale(6.5);
+                    transform: translateX(800px) rotateY(30deg) scale(6.5);
+            -webkit-transform-origin: -100% 50%;
+                    transform-origin: -100% 50%;
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: translateX(0) rotateY(0) scale(1);
+                    transform: translateX(0) rotateY(0) scale(1);
+            -webkit-transform-origin: 600px 50%;
+                    transform-origin: 600px 50%;
+            opacity: 1;
+        }
+    }
+    @keyframes slide-in-elliptic-right-bck {
+        0% {
+            -webkit-transform: translateX(800px) rotateY(30deg) scale(6.5);
+                    transform: translateX(800px) rotateY(30deg) scale(6.5);
+            -webkit-transform-origin: -100% 50%;
+                    transform-origin: -100% 50%;
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: translateX(0) rotateY(0) scale(1);
+                    transform: translateX(0) rotateY(0) scale(1);
+            -webkit-transform-origin: 600px 50%;
+                    transform-origin: 600px 50%;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes slide-out-elliptic-right-bck {
+        0% {
+          -webkit-transform: translateX(0) rotateY(0) scale(1);
+                  transform: translateX(0) rotateY(0) scale(1);
+          -webkit-transform-origin: -1800px 50%;
+                  transform-origin: -1800px 50%;
+          opacity: 1;
+        }
+        100% {
+          -webkit-transform: translateX(1000px) rotateY(-30deg) scale(0);
+                  transform: translateX(1000px) rotateY(-30deg) scale(0);
+          -webkit-transform-origin: -100% 50%;
+                  transform-origin: -100% 50%;
+          opacity: 1;
+        }
+      }
+      @keyframes slide-out-elliptic-right-bck {
+        0% {
+          -webkit-transform: translateX(0) rotateY(0) scale(1);
+                  transform: translateX(0) rotateY(0) scale(1);
+          -webkit-transform-origin: -1800px 50%;
+                  transform-origin: -1800px 50%;
+          opacity: 1;
+        }
+        100% {
+          -webkit-transform: translateX(1000px) rotateY(-30deg) scale(0);
+                  transform: translateX(1000px) rotateY(-30deg) scale(0);
+          -webkit-transform-origin: -100% 50%;
+                  transform-origin: -100% 50%;
+          opacity: 1;
+        }
+    }
+    nav > div:nth-child(2).block{
+        display: block;
+        position: absolute;
+        top: 110%;
+        padding: 15px;
+        width: 100%;
+        height: auto;
+        background: var(--vlred);
+        left: 0;
+        -webkit-animation: slide-in-elliptic-right-bck 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-elliptic-right-bck 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+    }
+    nav > div:nth-child(2) > ul{
+        display: block;
+        width: 100%;
+    }
+    nav > div:nth-child(2) > ul > li > a{
+        margin: 30px 10px;
+    }
+    nav > div:nth-child(2) > div.register{
+        width: 100%;
+        text-align: center;
+    }
+
     footer > div > *{
         width: 100%;
     }
